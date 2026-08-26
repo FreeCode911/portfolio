@@ -1,6 +1,5 @@
-import { ArrowUpRight, Globe, Bot, Building2 } from 'lucide-react';
+import { ArrowUpRight, Globe, Bot, Cloud, Music, Play, ExternalLink } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
-import { SectionHeading } from '@/components/About';
 
 interface Project {
   name: string;
@@ -9,60 +8,107 @@ interface Project {
   url?: string;
   meta: string;
   icon: typeof Globe;
-  accent: string;
+  gradient: string;
+  iconBg: string;
   featured?: boolean;
+  tags?: string[];
 }
 
 const projects: Project[] = [
   {
-    name: 'ShiftAPI',
-    tagline: 'shiftapi.lol',
-    desc: 'A web API service powering apps and integrations. Built and operated under ShiftAPI Pvt Ltd.',
+    name: 'LYK Cloud',
+    tagline: 'Parent Company',
+    desc: 'The parent company behind ShiftAPI and PicGenV. Powering AI services, Discord bots, and developer tools under one roof.',
     url: 'https://shiftapi.lol',
-    meta: 'Owner · ShiftAPI Pvt Ltd',
-    icon: Globe,
-    accent: 'from-violetx-500/25 to-accent-500/20 text-violetx-300',
+    meta: 'Founder',
+    icon: Cloud,
+    gradient: 'from-emerald-500/20 via-teal-500/10 to-cyan-500/5',
+    iconBg: 'from-emerald-500/20 to-teal-500/15 text-emerald-300',
     featured: true,
+    tags: ['AI', 'Cloud', 'Infrastructure'],
+  },
+  {
+    name: 'ShiftAPI',
+    tagline: 'All-in-One AI API',
+    desc: '14+ AI models through a single endpoint — text generation (GPT-4.1, Llama, DeepSeek, Grok), image generation (Flux, Kling), and utility services.',
+    url: 'https://shiftapi.lol',
+    meta: 'Creator',
+    icon: Globe,
+    gradient: 'from-violet-500/20 via-purple-500/10 to-fuchsia-500/5',
+    iconBg: 'from-violet-500/20 to-purple-500/15 text-violet-300',
+    featured: true,
+    tags: ['API', '14+ Models', 'AI'],
   },
   {
     name: 'PicGenV',
-    tagline: 'Discord Bot',
-    desc: 'A Discord bot for image generation. Invite it to your server and start creating.',
+    tagline: 'AI Generation Bot',
+    desc: 'Discord bot for AI image and video generation with multiple models. Invite it to your server and start creating instantly.',
     url: 'https://discord.com/oauth2/authorize?client_id=1345227880271183903',
-    meta: 'Owner · PicGenV',
+    meta: 'Creator',
     icon: Bot,
-    accent: 'from-accent-500/25 to-violetx-500/20 text-accent-300',
+    gradient: 'from-pink-500/20 via-rose-500/10 to-red-500/5',
+    iconBg: 'from-pink-500/20 to-rose-500/15 text-pink-300',
     featured: true,
+    tags: ['Discord', 'Image', 'Video'],
+  },
+  {
+    name: 'iSound',
+    tagline: 'Music Bot',
+    desc: 'A powerful Discord music bot with multi-server support, high-quality audio streaming, and intuitive controls for production-ready music playback.',
+    url: 'https://github.com/FreeCode911',
+    meta: 'Creator',
+    icon: Music,
+    gradient: 'from-amber-500/20 via-orange-500/10 to-yellow-500/5',
+    iconBg: 'from-amber-500/20 to-orange-500/15 text-amber-300',
+    tags: ['Discord', 'Music', 'Streaming'],
   },
   {
     name: 'LegendYt4k',
     tagline: 'YouTube Channel',
-    desc: 'My YouTube channel where I share builds, projects, and creative content.',
+    desc: 'My YouTube channel where I share builds, projects, tutorials, and creative content.',
     url: 'https://www.youtube.com/channel/UCUkds2ZRG5N2UeR0uqWZ6DA',
     meta: 'Creator',
-    icon: Building2,
-    accent: 'from-amber-500/20 to-accent-500/20 text-amber-300',
+    icon: Play,
+    gradient: 'from-red-500/20 via-red-400/10 to-orange-500/5',
+    iconBg: 'from-red-500/20 to-red-400/15 text-red-300',
+    tags: ['Content', 'Tutorials'],
   },
 ];
 
 export function Projects() {
   return (
-    <section id="projects" className="relative py-24 sm:py-32">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+    <section id="projects" className="relative py-28 sm:py-36">
+      {/* Divider */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+        {/* Section header */}
         <Reveal>
-          <SectionHeading eyebrow="Projects" title="Things I've built" />
-        </Reveal>
-        <Reveal delay={80}>
-          <p className="mt-6 max-w-2xl text-lg text-slate-400 leading-relaxed">
-            A selection of products and projects I own and maintain. Each one is live and
-            ready for you to check out.
-          </p>
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-card text-[11px] font-mono uppercase tracking-[0.2em] text-emerald-300/70">
+              Projects
+            </div>
+            <h2 className="mt-4 sm:mt-5 font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.1]">
+              Things I've built
+            </h2>
+            <p className="mt-5 text-lg text-white/35 leading-relaxed max-w-2xl">
+              Products and projects I own and maintain. Each one is live and ready for you to check out.
+            </p>
+          </div>
         </Reveal>
 
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((p, i) => (
-            <Reveal key={p.name} delay={i * 90}>
+        {/* Project grid — featured large, rest in grid */}
+        <div className="mt-10 sm:mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          {/* Featured: LYK Cloud spans 2 cols on lg */}
+          {projects.slice(0, 1).map((p, i) => (
+            <Reveal key={p.name} delay={i * 80}>
+              <ProjectCard project={p} large />
+            </Reveal>
+          ))}
+
+          {/* Rest in grid */}
+          {projects.slice(1).map((p, i) => (
+            <Reveal key={p.name} delay={(i + 1) * 80}>
               <ProjectCard project={p} />
             </Reveal>
           ))}
@@ -72,41 +118,66 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, large }: { project: Project; large?: boolean }) {
   return (
     <a
       href={project.url}
       target="_blank"
       rel="noreferrer"
-      className={`group relative block h-full overflow-hidden rounded-2xl glass p-7 hover:border-violetx-400/50 transition-all duration-300 hover:-translate-y-1 ${
-        project.featured ? 'lg:row-span-1' : ''
+      className={`group relative flex flex-col h-full overflow-hidden rounded-2xl glass-card border border-white/[0.06] hover:border-white/[0.12] transition-all duration-400 hover-lift hover:shadow-2xl hover:shadow-black/40 ${
+        large ? 'md:col-span-2 lg:col-span-1 p-7 sm:p-8' : 'p-6 sm:p-7'
       }`}
     >
-      <div className={`grid place-items-center h-14 w-14 rounded-xl bg-gradient-to-br ${project.accent} mb-5 transition-transform group-hover:scale-110`}>
-        <project.icon className="h-7 w-7" />
-      </div>
+      {/* Gradient overlay on hover */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
+      />
 
-      <div className="flex items-start justify-between gap-3">
+      <div className="relative flex flex-col h-full">
+        {/* Icon + Arrow */}
+        <div className="flex items-start justify-between mb-5">
+          <div
+            className={`grid place-items-center h-12 w-12 rounded-xl bg-gradient-to-br ${project.iconBg} transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}
+          >
+            <project.icon className="h-5 w-5" />
+          </div>
+          <span className="grid place-items-center h-8 w-8 rounded-lg border border-white/[0.08] text-white/30 group-hover:text-emerald-300 group-hover:border-emerald-500/20 transition-all duration-300">
+            <ExternalLink className="h-3.5 w-3.5" />
+          </span>
+        </div>
+
+        {/* Title + tagline */}
         <div>
-          <h3 className="font-display font-bold text-xl text-slate-100 group-hover:text-white transition-colors">
+          <h3 className="font-display font-bold text-xl text-white group-hover:text-white transition-colors">
             {project.name}
           </h3>
-          <div className="mt-0.5 text-xs font-mono text-accent-400">{project.tagline}</div>
+          <div className="mt-1 text-xs font-mono text-emerald-400/70">{project.tagline}</div>
         </div>
-        <span className="grid place-items-center h-9 w-9 rounded-lg border border-white/10 text-slate-400 group-hover:text-violetx-300 group-hover:border-violetx-400/50 transition-colors">
-          <ArrowUpRight className="h-4 w-4" />
-        </span>
-      </div>
 
-      <p className="mt-4 text-sm text-slate-400 leading-relaxed">{project.desc}</p>
+        {/* Description */}
+        <p className="mt-4 text-sm text-white/35 leading-relaxed flex-1">{project.desc}</p>
 
-      <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
-        <span className="text-xs text-slate-500">{project.meta}</span>
-        {project.url && (
-          <span className="text-xs font-medium text-violetx-400 group-hover:text-violetx-300">
+        {/* Tags */}
+        {project.tags && (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-1 rounded-md bg-white/[0.04] text-[11px] font-medium text-white/40 border border-white/[0.04]"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Footer */}
+        <div className="mt-5 pt-4 border-t border-white/[0.04] flex items-center justify-between">
+          <span className="text-xs text-white/30 font-medium">{project.meta}</span>
+          <span className="text-xs font-medium text-emerald-400/60 group-hover:text-emerald-300 transition-colors">
             Visit →
           </span>
-        )}
+        </div>
       </div>
     </a>
   );
